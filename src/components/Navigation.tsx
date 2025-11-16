@@ -1,18 +1,23 @@
 import { useState } from "react";
 import { Heart, Brain, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { useNavigate, useLocation } from "react-router-dom";
 
-interface NavigationProps {
-  currentPage: string;
-  onPageChange: (page: string) => void;
-}
-
-export function Navigation({ currentPage, onPageChange }: NavigationProps) {
+export function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const navItems = ["Home", "Product", "R&D", "About", "Blogs"];
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  const navItems = [
+    { name: "Home", path: "/" },
+    { name: "Product", path: "/product" },
+    { name: "R&D", path: "/rd" },
+    { name: "About", path: "/about" },
+    { name: "Blogs", path: "/blogs" }
+  ];
 
-  const handlePageChange = (page: string) => {
-    onPageChange(page);
+  const handlePageChange = (path: string) => {
+    navigate(path);
     setIsMobileMenuOpen(false);
   };
 
@@ -23,7 +28,7 @@ export function Navigation({ currentPage, onPageChange }: NavigationProps) {
           <div className="flex justify-between items-center h-16">
             {/* Logo */}
             <button 
-              onClick={() => handlePageChange("Home")}
+              onClick={() => handlePageChange("/")}
               className="flex items-center space-x-2 hover:opacity-80 transition-opacity"
             >
               <div className="relative">
@@ -37,17 +42,17 @@ export function Navigation({ currentPage, onPageChange }: NavigationProps) {
             <div className="hidden md:flex space-x-8">
               {navItems.map((item) => (
                 <button
-                  key={item}
-                  onClick={() => handlePageChange(item)}
+                  key={item.name}
+                  onClick={() => handlePageChange(item.path)}
                   className={`transition-colors duration-200 relative group ${
-                    currentPage === item 
+                    location.pathname === item.path
                       ? "text-primary" 
                       : "text-muted-foreground hover:text-primary"
                   }`}
                 >
-                  {item}
+                  {item.name}
                   <span className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-200 ${
-                    currentPage === item ? "w-full" : "w-0 group-hover:w-full"
+                    location.pathname === item.path ? "w-full" : "w-0 group-hover:w-full"
                   }`}></span>
                 </button>
               ))}
@@ -104,15 +109,15 @@ export function Navigation({ currentPage, onPageChange }: NavigationProps) {
                 <div className="flex-1 py-6 px-4 space-y-1">
                   {navItems.map((item) => (
                     <button
-                      key={item}
-                      onClick={() => handlePageChange(item)}
+                      key={item.name}
+                      onClick={() => handlePageChange(item.path)}
                       className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 ${
-                        currentPage === item
+                        location.pathname === item.path
                           ? "bg-gradient-to-r from-cyan-50 to-teal-50 text-primary"
                           : "text-gray-700 hover:bg-gray-50"
                       }`}
                     >
-                      {item}
+                      {item.name}
                     </button>
                   ))}
                 </div>

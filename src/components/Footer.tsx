@@ -2,12 +2,12 @@ import { Heart, Brain, Mail, Phone, MapPin, Twitter, Linkedin, Github } from "lu
 
 export function Footer() {
   const quickLinks = [
-    { name: "About Us", href: "#about" },
-    { name: "Our Product", href: "#product" },
-    { name: "Research", href: "#research" },
-    { name: "Blog", href: "#blog" },
-    { name: "Careers", href: "#careers" },
-    { name: "Contact", href: "#contact" }
+    { name: "About Us", href: "about" },
+    { name: "Our Product", href: "product" },
+    { name: "Research", href: "rd" },
+    { name: "Blog", href: "blogs" },
+    { name: "Careers", href: "careers" },
+    { name: "Contact", href: "contact" }
   ];
 
   const legalLinks = [
